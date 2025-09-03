@@ -1,29 +1,61 @@
+/*
+ * UserList Component
+ * Demonstrates: Array method mastery (map, filter, length)
+ * JavaScript skills applied:
+ * - Array.map() for rendering lists
+ * - Array.filter() for data filtering
+ * - Array.length for counts
+ * - State management for interactive filtering
+ */
 import React, { useState } from "react";
 
 export default function DataFetcher() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
+  const [maxRetries] = useState(3);
 
   async function fetchData() {
     setLoading(true);
     setError(null);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      if (Math.random() > 0.3) {
-        const mockData = {
-          users: Math.floor(Math.random() * 100),
-          posts: Math.floor(Math.random() * 1000),
-          comments: Math.floor(Math.random() * 1000),
-          lastUpdate: new Date().toLocaleString(),
-        };
-        setData(mockData);
-      } else {
-        throw new Error("Network request failed");
+      await new Promise((resolve) => setTimeout(() => resolve(), 1000));
+
+      const errorTypes = ["network", "timeout", "server", "success"];
+      const randomResult =
+        errorTypes[Math.floor(Math.random() * errorTypes.length)];
+      let mockData = {};
+
+      switch (randomResult) {
+        case "network":
+          throw new Error("Network connection failed");
+        case "timeout":
+          throw new Error("Request Timeout");
+        case "server":
+          throw new Error("Server error (500)");
+        case "success":
+          mockData = {
+            users: Math.floor(Math.random() * 1000) + 100,
+            posts: Math.floor(Math.random() * 5000) + 500,
+            comments: Math.floor(Math.random() * 10000) + 1000,
+            lastUpdate: new Date().toLocaleString(),
+          };
+          setData(mockData);
+          setRetryCount(0);
+          break;
       }
     } catch (error) {
       setError(error.message);
+
+      //auto retry
+      if (retryCount < maxRetries) {
+        setTimeout(() => {
+          setRetryCount((prev) => prev + 1);
+          fetchData(true);
+        }, 2000);
+      }
     } finally {
       setLoading(false);
     }
@@ -50,7 +82,13 @@ export default function DataFetcher() {
         >
           <h4>❌ Error occurred:</h4>
           <p>{error}</p>
-          <button onClick={fetchData}>Try again</button>
+          {retryCount < maxRetries ? (
+            <p>
+              🔄 Auto-retrying... Attempt {retryCount + 1}/{maxRetries}
+            </p>
+          ) : (
+            <button onClick={() => fetchData()}>Try Again</button>
+          )}
         </div>
       )}
 

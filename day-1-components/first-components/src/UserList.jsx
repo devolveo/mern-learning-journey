@@ -1,3 +1,12 @@
+/*
+ * UserList Component
+ * Demonstrates: Array method mastery (map, filter, length)
+ * JavaScript skills applied:
+ * - Array.map() for rendering lists
+ * - Array.filter() for data filtering
+ * - Array.length for counts
+ * - State management for interactive filtering
+ */
 import React, { useState } from "react";
 
 export default function UserList() {
