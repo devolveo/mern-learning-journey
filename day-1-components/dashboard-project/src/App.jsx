@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./styles/Dashboard.css";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
+import MainContent from "./components/MainContent";
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -15,7 +16,9 @@ function App() {
         <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
         <div className="dashboard-body">
           <Sidebar />
+          <MainContent />
         </div>
+        {/* <Footer /> */}
       </div>
     </>
   );
