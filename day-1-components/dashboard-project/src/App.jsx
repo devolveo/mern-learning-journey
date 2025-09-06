@@ -3,6 +3,7 @@ import "./styles/Dashboard.css";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import MainContent from "./components/MainContent";
+import Footer from "./components/Footer";
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -18,7 +19,7 @@ function App() {
           <Sidebar />
           <MainContent />
         </div>
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </>
   );

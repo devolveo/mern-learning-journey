@@ -1,6 +1,8 @@
 import React from "react";
 import GitHubStats from "./GitHubStats";
 import SkillsProgress from "./SkillsProgress";
+import ProjectsCard from "./ProjectsCard";
+import ActivityTimeline from "./ActivityTimeline";
 
 function MainContent() {
   return (
@@ -9,19 +11,9 @@ function MainContent() {
 
       <SkillsProgress />
 
-      <div className="dashboard-card">
-        <h3 className="card-title">💼 Projects Card</h3>
-        <div className="card-content">
-          <p>Projects component coming next...</p>
-        </div>
-      </div>
+      <ProjectsCard />
 
-      <div className="dashboard-card">
-        <h3 className="card-title">⚡ Activity Timeline</h3>
-        <div className="card-content">
-          <p>Activity timeline component coming next...</p>
-        </div>
-      </div>
+      <ActivityTimeline />
     </main>
   );
 }
