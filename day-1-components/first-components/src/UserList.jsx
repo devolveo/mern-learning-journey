@@ -7,7 +7,7 @@
  * - Array.length for counts
  * - State management for interactive filtering
  */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function UserList() {
   const [filterRole, setFilterRole] = useState("All");
@@ -69,4 +69,19 @@ export default function UserList() {
       <div>{userItems}</div>
     </>
   );
+}
+
+function TimerComponent() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount((prev) => prev + 1);
+    }, 1000);
+
+    //cleanup
+    return () => clearInterval(interval);
+  }, []);
+
+  return <div>Count: {count}</div>;
 }
